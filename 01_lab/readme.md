@@ -6,6 +6,8 @@
 
 > 31.03.2023 upd.  
 > Я очень угадал с ролями: https://github.com/twitter/the-algorithm/blob/main/home-mixer/server/src/main/scala/com/twitter/home_mixer/functional_component/decorator/HomeTweetTypePredicates.scala#L224-L247
+> 10.05.2023 upd.
+> не привязался к коммиту и перетерли( там были предикаты республиканцев и илона маска.
 
 ## Спецификация таблиц
 
