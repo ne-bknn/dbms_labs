@@ -1,5 +1,5 @@
 CREATE TABLE user (
-    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL,
     primary_language TEXT NOT NULL,
@@ -13,21 +13,21 @@ CREATE TABLE subscription (
     FOREIGN KEY(follower) REFERENCES user(id),
     FOREIGN KEY(followee) REFERENCES user(id)
 );
+
 CREATE TABLE post (
-    id INTEGER AUTOINCREMENT NOT NULL UNIQUE,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     owner INTEGER NOT NULL,
     attachment INTEGER,
     text TEXT NOT NULL,
     comment_for INTEGER,
     repost_of INTEGER,
-    PRIMARY KEY (id, owner),
     FOREIGN KEY(owner) REFERENCES user(id),
     FOREIGN KEY(attachment) REFERENCES attachment(id),
     FOREIGN KEY(comment_for) REFERENCES post(id),
     FOREIGN KEY(repost_of) REFERENCES post(id)
 );
 CREATE TABLE attachment (
-    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     mime TEXT NOT NULL,
     size INTEGER NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE attachment (
     FOREIGN KEY(owner_id) REFERENCES user(id)
 );
 CREATE TABLE hashtag (
-    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     slug TEXT NOT NULL UNIQUE
 );
 CREATE TABLE posttaglink (
@@ -46,7 +46,7 @@ CREATE TABLE posttaglink (
     FOREIGN KEY(post_id) REFERENCES post(id),
     FOREIGN KEY(hastag_id) REFERENCES hashtag(id)
 );
-CREATE TABLE follow_requests (
+CREATE TABLE follow_request (
     from_user INTEGER NOT NULL,
     to_user INTEGER NOT NULL,
     PRIMARY KEY (from_user, to_user),
@@ -61,20 +61,21 @@ CREATE TABLE user_ban (
     FOREIGN KEY(by_user) REFERENCES user(id)
 );
 CREATE TABLE notification (
-    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     post_id INTEGER NOT NULL,
     notifiable_id INTEGER NOT NULL,
     FOREIGN KEY(post_id) REFERENCES post(id),
     FOREIGN KEY(notifiable_id) REFERENCES user(id)
 );
-CREATE TABLE like (
+CREATE TABLE upvote (
     post_id INTEGER NOT NULL,
-    user_id INTEGER PRIMARY KEY NOT NULL,
+    user_id INTEGER NOT NULL,
+    PRIMARY KEY (post_id, user_id),
     FOREIGN KEY(post_id) REFERENCES post(id),
     FOREIGN KEY(user_id) REFERENCES user(id)
 );
 CREATE TABLE role_types (
-    id INTEGER PRIMARY KEY NOT NULL,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL UNIQUE
 );
 CREATE TABLE role (
@@ -85,7 +86,7 @@ CREATE TABLE role (
     FOREIGN KEY(user_id) REFERENCES user(id)
 );
 CREATE TABLE platform_ban (
-    id INTEGER PRIMARY KEY NOT NULL,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     until INTEGER NOT NULL,
     reason TEXT NOT NULL,
