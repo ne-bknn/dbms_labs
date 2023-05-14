@@ -238,8 +238,6 @@ python3 queries.py
 
 ## Приложение
 
-[Генератор](./generator.py)  
-[Модели](./models.py)  
 [Запросы](./queries.py)  
 
 ## Заключение
