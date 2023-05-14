@@ -30,8 +30,8 @@ query_users_by_language = Query(
 )
 
 query_posts_by_user = Query(
-    query="SELECT COUNT(*) FROM post WHERE owner = 'Death_Louce';",
-    name="Количество постов пользователя Death_Louce",
+    query="SELECT COUNT(*) FROM post WHERE owner = (SELECT id FROM user WHERE username = 'Death_Louce');",
+    name="Количество постов пользователя 78",
 )
 
 query_top_users_by_amount_of_posts = Query(
